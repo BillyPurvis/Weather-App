@@ -1,0 +1,24 @@
+h1 {
+   font-size: 3em;
+}
+#err {
+    font-size: 1.3em;
+    width: 60%;
+    line-height: 29px;
+    padding-top: 20%;
+    position: relative;
+}
+body {
+    color: #fff;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    background: url("https://images.unsplash.com/photo-1438216983993-cdcd7dea84ce?fit=crop&fm=jpg&h=650&ixjsv=2.0.0&ixlib=rb-0.3.5&q=80&w=1375") center center fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#weatherApp {
+    left: 5%;
+    top: 10%;
+    position: absolute;
+}
