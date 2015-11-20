@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        h1 {
+            font-size: 3em;
+        }
+        #err {
+            font-size: 1.3em;
+            width: 60%;
+            line-height: 29px;
+            padding-top: 20%;
+            position: relative;
+        }
+        body {
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background: url("https://images.unsplash.com/photo-1438216983993-cdcd7dea84ce?fit=crop&fm=jpg&h=650&ixjsv=2.0.0&ixlib=rb-0.3.5&q=80&w=1375") center center fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        #weatherApp {
+            left: 5%;
+            top: 10%;
+            position: absolute;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+//        $(function(){
+//
+//            // jQuery methods go here...
+//
+//
+//        });
+        $(function () {
+            var Geo = {};
+            var coords = document.getElementById("coords");
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error);
+            }
+
+    // Get Lat/Long
+    function success(position) {
+        Geo.lat = position.coords.latitude;
+        Geo.lng = position.coords.longitude;
+        // Pass populateCoords object func
+        populateCoords(Geo.lat, Geo.lng);
+
+        $.ajax({
+            url: "http://api.wunderground.com/api/0e5af2c42173a4e4/geolookup/conditions/q/" + Geo.lat + "," + Geo.lng + ".json",
+            dataType: "jsonp", // JSON can't exchange data between servers, so we use JSONP.
+            success: function (parsed_json) {
+                var location = parsed_json['location']['city'];
+                var temp_c = parsed_json['current_observation']['temp_c'];
+                var temp_f = parsed_json['current_observation']['temp_f'];
+                var wind_mph = parsed_json['current_observation']['wind_mph'];
+                var weather = parsed_json['current_observation']['weather'];
+                var img = parsed_json['current_observation']['icon_url'];
+                // Bind data to HTML Elms
+                document.getElementById("location").innerHTML = location;
+                document.getElementById("weather").innerHTML  = weather;
+                document.getElementById("temp").innerHTML = temp_c + " c" + " / " + temp_f + " f";
+                document.getElementById("wind").innerHTML = wind_mph + " mph";
+                $("img").attr('src', img);
+
+            }
+        });
+    }
+
+    function populateCoords(lat, lng) {
+        // If you want to show co-ords
+    }
+
+    function error() {
+        document.getElementById("err").innerHTML = "Geo Location Failed, either your browser doesn't support Geo Location or it's blocked.";
+    }
+
+
+});
+    </script>
+</head>
+<body>
+<span id="coords"></span>
+
+    <div id="weatherApp">
+        <h1 id="err"></h1>
+        <h1 id="location"></h1>
+        <h2 id="weather"></h2>
+        <h2 id="temp"></h2>
+        <h2 id="wind"></h2>
+        <img src=""/>
+    </div>
+</body>
+</html>
