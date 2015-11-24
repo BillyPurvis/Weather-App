@@ -35,15 +35,15 @@ $(function () {
                 $("#temp").html(temp_c + " c" + " / " + temp_f + " f");
                 $("#wind").html(wind_mph + " mph");
                 $("img").attr('src', img);
-            },
-            error: function () {
-                $("#err").html("Error");
-            };
+            }
         });
     }
 
     function populateCoords(lat, lng) {
         // If you want to show co-ords
+    }
+    function error(){
+        console.log("Err");
     }
     
     // Err function previously here, but I'm refurned an error the sucess doesn't respond. 
