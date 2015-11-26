@@ -1,5 +1,5 @@
 /*jslint browser: true*/
-/*global $, jQuery, alert*/
+/*global $, jQuery, alert, console*/
 
 $(function () {
     'use strict';
@@ -10,6 +10,32 @@ $(function () {
     };
     
     // Get position and set getWeather() as a parameter if successful
+    function getLocation() {
+        
+        var location = $("#location");
+        
+        if (!navigator.geolocation) { // If true, run success, false, err
+            console.log("Err");
+            return;
+        }
+        
+        function showLocation(position) {
+            var latitude  = position.coords.latitude,
+                longitude = position.coords.longitude;
+            
+            console.log(latitude);
+            console.log(longitude);
+            
+        }
+        
+        function LocationError() {
+            alert("Err");
+        }
+        navigator.geolocation.getCurrentPosition(showLocation, LocationError);
+    }
+    getLocation();
+    
+
     
     
     function getWeather() {
@@ -21,10 +47,10 @@ $(function () {
                 var location = Data.location.city,
                     temp_c   = Data.current_observation.temp_c,
                     wind_mph = Data.current_observation.wind_mph;
-                alert("Current temperature in " + location + " is: " + temp_c + " and wind is " + wind_mph + " mph");
+                console.log("Current temperature in " + location + " is: " + temp_c + " and wind is " + wind_mph + " mph");
             },
             error: function (errorThrown) {
-                alert("You fucked up boy");
+                console.log("You fucked up boy");
             }
         });
    
