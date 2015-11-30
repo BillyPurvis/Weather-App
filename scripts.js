@@ -1,8 +1,24 @@
 /*jslint browser: true*/
-/*global $, jQuery, alert, console, var */
+/*global $, jQuery, alert, console */
 
 $(function () {
     'use strict';
+    
+    if(!localStorage.getItem('rice')) {
+        win();
+    } else {
+        loss();
+    }
+
+    function win() {
+        console.log("Winner Winner Chicken Dinner");
+    }
+
+    function loss() {
+        console.log("Loser!");
+    }
+    
+    
     // Define a options parameter where we can 
     // limit timeOut etc
     var configOpt = {
