@@ -5,13 +5,14 @@ $(function () {
     'use strict';
     
     
-    
+    var Geo = {},
     // Define a options parameter where we can 
     // limit timeOut etc
-    var configOpt = {
-        timeout: 2000,
-        cache: true
-    },
+        configOpt = {
+            timeout: 2000,
+            cache: true
+        },
+    
         location = $("#location");
     
     // Get position and invoke location and ajax req if successful location grab
@@ -25,12 +26,12 @@ $(function () {
         
     function showLocation(position, configOpt) {
             
-        var latitude  = position.coords.latitude,
-            longitude = position.coords.longitude;
-        console.log(latitude, longitude);
+        Geo.lat  = position.coords.latitude;
+        Geo.lan  = position.coords.longitude;
+        console.log(Geo);
             
         $.ajax({
-            url: "http://api.wunderground.com/api/0e5af2c42173a4e4/geolookup/conditions/q/" + latitude + "," + longitude + ".json",
+            url: "http://api.wunderground.com/api/0e5af2c42173a4e4/geolookup/conditions/q/" + Geo.lat + "," + Geo.lan + ".json",
             dataType : "jsonp",
             success : function (Data) {
                 var location = Data.location.city,
@@ -43,10 +44,7 @@ $(function () {
             }
         });
         
-        // Save long/lat in local storage so we don't need to run GeoLocation again
-        // Quicker updates on weather
-        localStorage.setItem();
-        console.log(localStorage);
+        
     }
         
     function LocationError() {
@@ -55,4 +53,7 @@ $(function () {
     navigator.geolocation.getCurrentPosition(showLocation, LocationError);
    // }
     //getLocation();
+    
+    
+   
 });
