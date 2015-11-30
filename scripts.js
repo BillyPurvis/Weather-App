@@ -4,19 +4,6 @@
 $(function () {
     'use strict';
     
-    if(!localStorage.getItem('rice')) {
-        win();
-    } else {
-        loss();
-    }
-
-    function win() {
-        console.log("Winner Winner Chicken Dinner");
-    }
-
-    function loss() {
-        console.log("Loser!");
-    }
     
     
     // Define a options parameter where we can 
@@ -40,6 +27,7 @@ $(function () {
             
         var latitude  = position.coords.latitude,
             longitude = position.coords.longitude;
+        console.log(latitude, longitude);
             
         $.ajax({
             url: "http://api.wunderground.com/api/0e5af2c42173a4e4/geolookup/conditions/q/" + latitude + "," + longitude + ".json",
@@ -54,6 +42,11 @@ $(function () {
                 $("#i").html("Weather Err");
             }
         });
+        
+        // Save long/lat in local storage so we don't need to run GeoLocation again
+        // Quicker updates on weather
+        localStorage.setItem();
+        console.log(localStorage);
     }
         
     function LocationError() {
